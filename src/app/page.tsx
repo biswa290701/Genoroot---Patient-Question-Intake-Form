@@ -103,13 +103,13 @@ function Chip({ selected, onClick, children, ariaLabel }: { selected: boolean; o
       onClick={onClick}
       aria-pressed={selected}
       aria-label={ariaLabel}
-      className={`w-full text-left px-5 py-4 rounded-2xl border text-[16px] leading-5 font-medium transition-all flex items-center justify-between gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C45A2A] focus-visible:ring-offset-1 ${
+      className={`w-full min-w-0 text-left px-4 sm:px-5 py-3.5 sm:py-4 rounded-2xl border text-[14px] sm:text-[15px] leading-5 font-medium transition-all flex items-center justify-between gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C45A2A] focus-visible:ring-offset-1 break-words ${
         selected
           ? "bg-[#1A1A18] text-white border-[#1A1A18] shadow-sm"
           : "bg-white border-[#E8E0D6] hover:border-[#C8B8A6] hover:bg-[#FFFCF8] text-[#1A1A18] active:scale-[0.99]"
       }`}
     >
-      <span className="flex-1">{children}</span>
+      <span className="flex-1 min-w-0 break-words">{children}</span>
       {selected && (
         <span className="w-6 h-6 rounded-full bg-white text-[#1A1A18] grid place-items-center text-[12px] font-bold shrink-0" aria-hidden>
           ✓
@@ -121,11 +121,11 @@ function Chip({ selected, onClick, children, ariaLabel }: { selected: boolean; o
 
 function YesNo({ value, onChange, label }: { value: boolean | null; onChange: (v: boolean) => void; label?: string }) {
   return (
-    <div className="grid grid-cols-2 gap-3" role="group" aria-label={label}>
+    <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full min-w-0" role="group" aria-label={label}>
       <button
         onClick={() => onChange(true)}
         aria-pressed={value === true}
-        className={`py-4 rounded-2xl border font-semibold text-[17px] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C45A2A] ${
+        className={`min-w-0 w-full py-3.5 sm:py-4 rounded-2xl border font-semibold text-[15px] sm:text-[17px] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C45A2A] min-h-[44px] ${
           value === true ? "bg-[#1A1A18] text-white border-[#1A1A18] shadow-sm" : "bg-white border-[#E8E0D6] hover:bg-[#FFFCF8]"
         }`}
       >
@@ -134,7 +134,7 @@ function YesNo({ value, onChange, label }: { value: boolean | null; onChange: (v
       <button
         onClick={() => onChange(false)}
         aria-pressed={value === false}
-        className={`py-4 rounded-2xl border font-semibold text-[17px] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C45A2A] ${
+        className={`min-w-0 w-full py-3.5 sm:py-4 rounded-2xl border font-semibold text-[15px] sm:text-[17px] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C45A2A] min-h-[44px] ${
           value === false ? "bg-[#1A1A18] text-white border-[#1A1A18] shadow-sm" : "bg-white border-[#E8E0D6] hover:bg-[#FFFCF8]"
         }`}
       >
@@ -638,7 +638,7 @@ export default function Home() {
             {/* card transition wrapper */}
             <div key={step} className="animate-fadeInUp">
               {step === "welcome" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-[#C45A2A] bg-[#FFF1E8] px-3 py-1 rounded-full">
                     2 MIN · ONE TAP AT A TIME
                   </div>
@@ -695,10 +695,10 @@ export default function Home() {
               )}
 
               {step === "gate" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>ABOUT YOU</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2 leading-tight">Do questions about periods or pregnancy apply to you?</h2>
-                  <p className="text-[15px] text-[#6B6B68] mt-2 leading-6">They can affect hair loss, so we ask respectfully. If not, we will skip them — your form stays complete.</p>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2 leading-tight">Do questions about periods or pregnancy apply to you?</h2>
+                  <p className="text-[14px] sm:text-[15px] text-[#6B6B68] mt-2 leading-6">They can affect hair loss, so we ask respectfully. If not, we will skip them — your form stays complete.</p>
                   <div className="mt-6 space-y-3">
                     <Chip selected={intake._applicability === "applies"} onClick={() => setIntake((s) => ({ ...s, _applicability: "applies" }))}>
                       Yes — show those questions
@@ -713,10 +713,10 @@ export default function Home() {
               )}
 
               {step === "q1" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Hair history · 1 of 4</SectionEyebrow>
-                  <h2 className="text-[24px] sm:text-[26px] font-bold mt-2 leading-tight">When did you first notice hair loss?</h2>
-                  <p className="text-[15px] text-[#6B6B68] mt-1.5">Your age at that time. Tap − / + or type directly.</p>
+                  <h2 className="text-[22px] sm:text-[26px] font-bold mt-2 leading-tight">When did you first notice hair loss?</h2>
+                  <p className="text-[14px] sm:text-[15px] text-[#6B6B68] mt-1.5">Your age at that time. Tap − / + or type directly.</p>
                   <div className="mt-6 flex items-center gap-3 sm:gap-4">
                     <button
                       aria-label="Decrease age"
@@ -768,9 +768,9 @@ export default function Home() {
               )}
 
               {step === "q2" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Hair history · 2 of 4</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">How long has it been happening?</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">How long has it been happening?</h2>
                   <div className="mt-6 space-y-3">
                     {DURATIONS.map((o) => (
                       <Chip key={o} selected={intake.duration === o} onClick={() => setIntake((s) => ({ ...s, duration: o as any }))}>
@@ -783,9 +783,9 @@ export default function Home() {
               )}
 
               {step === "q3" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Hair history · 3 of 4 · Choose all that apply</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">Does hair loss run in your family?</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">Does hair loss run in your family?</h2>
                   <div className="mt-6 space-y-3">
                     {FAMILY.map((o) => (
                       <Chip
@@ -803,9 +803,9 @@ export default function Home() {
               )}
 
               {step === "q4" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Hair history · 4 of 4 · Tap all that look like you</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">How would you describe your hair loss?</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">How would you describe your hair loss?</h2>
                   <p className="text-sm text-[#6B6B68] mt-1">No medical words needed — pick what you see.</p>
                   <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {PATTERNS.map((p) => {
@@ -819,7 +819,7 @@ export default function Home() {
                         >
                           <span className={`w-11 h-11 rounded-xl grid place-items-center shrink-0 border ${sel ? "bg-white border-white" : "bg-white border-[#E8E0D6]"}`}>{p.svg}</span>
                           <span className="min-w-0">
-                            <div className="font-semibold text-[15px] leading-tight">{p.label}</div>
+                            <div className="font-semibold text-[14px] sm:text-[15px] leading-tight">{p.label}</div>
                             <div className={`text-xs mt-1 leading-4 ${sel ? "text-white/80" : "text-[#6B6B68]"}`}>{p.desc}</div>
                           </span>
                         </button>
@@ -831,9 +831,9 @@ export default function Home() {
               )}
 
               {step === "q5" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Health · 1 of {intake._applicability === "applies" ? 4 : 2}</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">Have you been diagnosed with any of these?</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">Have you been diagnosed with any of these?</h2>
                   <div className="mt-6 space-y-3">
                     {CONDITIONS.map((o) => (
                       <Chip
@@ -850,9 +850,9 @@ export default function Home() {
               )}
 
               {step === "q6" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Health · 2 of 4</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">How is your menstrual cycle?</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">How is your menstrual cycle?</h2>
                   <div className="mt-6 space-y-3">
                     {(["Regular", "Irregular", "Menopausal", "Not applicable"] as const).map((o) => (
                       <Chip key={o} selected={intake.menstrual_cycle === o} onClick={() => setIntake((s) => ({ ...s, menstrual_cycle: o }))}>
@@ -865,9 +865,9 @@ export default function Home() {
               )}
 
               {step === "q7" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Health · 3 of 4</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">Any pregnancy-related hair changes?</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">Any pregnancy-related hair changes?</h2>
                   <div className="mt-6 space-y-3">
                     {(["Currently pregnant", "Postpartum <1 year", "Not applicable"] as const).map((o) => (
                       <Chip key={o} selected={intake.pregnancy_related === o} onClick={() => setIntake((s) => ({ ...s, pregnancy_related: o }))}>
@@ -880,18 +880,18 @@ export default function Home() {
               )}
 
               {step === "q8q9" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Health · {intake._applicability === "applies" ? "4 of 4" : "2 of 2"}</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2 leading-tight">A couple of quick checks</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2 leading-tight">A couple of quick checks</h2>
                   <div className="mt-6 space-y-7">
                     <div>
-                      <div className="font-semibold text-[15px]">Do you have acne or very oily skin as an adult?</div>
+                      <div className="font-semibold text-[14px] sm:text-[15px]">Do you have acne or very oily skin as an adult?</div>
                       <div className="mt-3">
                         <YesNo value={intake.adult_acne_oily_skin} onChange={(v) => setIntake((s) => ({ ...s, adult_acne_oily_skin: v }))} label="Acne or oily skin" />
                       </div>
                     </div>
                     <div className="pt-5 border-t border-[#E8E0D6]">
-                      <div className="font-semibold text-[15px]">Do you have excess body or facial hair growth?</div>
+                      <div className="font-semibold text-[14px] sm:text-[15px]">Do you have excess body or facial hair growth?</div>
                       <div className="mt-3">
                         <YesNo value={intake.excess_body_facial_hair} onChange={(v) => setIntake((s) => ({ ...s, excess_body_facial_hair: v }))} label="Excess body or facial hair" />
                       </div>
@@ -902,9 +902,9 @@ export default function Home() {
               )}
 
               {step === "q10" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Lifestyle · 1 of 2 · Choose all that apply</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">In the past 6 months, have you had any of these?</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">In the past 6 months, have you had any of these?</h2>
                   <div className="mt-6 space-y-3">
                     {PAST6.map((o) => {
                       const sel = intake.past_6_months.includes(o as any);
@@ -928,13 +928,13 @@ export default function Home() {
               )}
 
               {step === "q11" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Lifestyle · 2 of 2</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">A bit about daily habits</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">A bit about daily habits</h2>
                   <p className="text-sm text-[#6B6B68] mt-1">Short taps — details only appear when relevant.</p>
                   <div className="mt-6 space-y-4">
                     <div className={`p-4 sm:p-5 rounded-2xl border ${intake.habits.smoking !== null ? "bg-white border-[#E8E0D6]" : "bg-[#FFFCF8] border-[#E8E0D6]"}`}>
-                      <div className="font-semibold text-[15px]">Do you smoke?</div>
+                      <div className="font-semibold text-[14px] sm:text-[15px]">Do you smoke?</div>
                       <div className="mt-3">
                         <YesNo value={intake.habits.smoking} onChange={(v) => setIntake((s) => ({ ...s, habits: { ...s.habits, smoking: v, smoking_severity: v ? s.habits.smoking_severity : null } }))} label="Smoking" />
                       </div>
@@ -953,21 +953,21 @@ export default function Home() {
                     </div>
 
                     <div className="p-4 sm:p-5 rounded-2xl border bg-white border-[#E8E0D6]">
-                      <div className="font-semibold text-[15px]">Do you drink alcohol?</div>
+                      <div className="font-semibold text-[14px] sm:text-[15px]">Do you drink alcohol?</div>
                       <div className="mt-3">
                         <YesNo value={intake.habits.alcohol} onChange={(v) => setIntake((s) => ({ ...s, habits: { ...s.habits, alcohol: v } }))} label="Alcohol" />
                       </div>
                     </div>
 
                     <div className="p-4 sm:p-5 rounded-2xl border bg-white border-[#E8E0D6]">
-                      <div className="font-semibold text-[15px]">Do you use hard water to wash hair?</div>
+                      <div className="font-semibold text-[14px] sm:text-[15px]">Do you use hard water to wash hair?</div>
                       <div className="mt-3">
                         <YesNo value={intake.habits.hard_water} onChange={(v) => setIntake((s) => ({ ...s, habits: { ...s.habits, hard_water: v } }))} label="Hard water" />
                       </div>
                     </div>
 
                     <div className="p-4 sm:p-5 rounded-2xl border bg-white border-[#E8E0D6]">
-                      <div className="font-semibold text-[15px]">How often do you wash your hair?</div>
+                      <div className="font-semibold text-[14px] sm:text-[15px]">How often do you wash your hair?</div>
                       <div className="mt-3 space-y-2.5">
                         {(["Daily", "Alternate Days", "Weekly"] as const).map((o) => (
                           <Chip key={o} selected={intake.habits.hair_wash_frequency === o} onClick={() => setIntake((s) => ({ ...s, habits: { ...s.habits, hair_wash_frequency: o } }))}>
@@ -978,14 +978,14 @@ export default function Home() {
                     </div>
 
                     <div className="p-4 sm:p-5 rounded-2xl border bg-white border-[#E8E0D6]">
-                      <div className="font-semibold text-[15px]">Do you use heating tools or styling chemicals?</div>
+                      <div className="font-semibold text-[14px] sm:text-[15px]">Do you use heating tools or styling chemicals?</div>
                       <div className="mt-3">
                         <YesNo value={intake.habits.heating_tools_styling_chemicals} onChange={(v) => setIntake((s) => ({ ...s, habits: { ...s.habits, heating_tools_styling_chemicals: v } }))} label="Heating tools" />
                       </div>
                     </div>
 
                     <div className="p-4 sm:p-5 rounded-2xl border bg-white border-[#E8E0D6]">
-                      <div className="font-semibold text-[15px]">Have you had salon treatments like keratin / rebonding / smoothening?</div>
+                      <div className="font-semibold text-[14px] sm:text-[15px]">Have you had salon treatments like keratin / rebonding / smoothening?</div>
                       <div className="mt-3">
                         <YesNo value={intake.habits.salon_treatments} onChange={(v) => setIntake((s) => ({ ...s, habits: { ...s.habits, salon_treatments: v, salon_treatment_detail: v ? s.habits.salon_treatment_detail : "" } }))} label="Salon treatments" />
                       </div>
@@ -1010,18 +1010,18 @@ export default function Home() {
               )}
 
               {step === "q12" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Treatments · 1 of 3</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">Which products have you used?</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">Which products have you used?</h2>
                   <p className="text-sm text-[#6B6B68] mt-1">Start with a simple Yes / No. We only ask details if you say Yes.</p>
                   <div className="mt-6 space-y-3">
                     {PRODUCT_ROWS.map((row) => {
                       const e = intake.products[row];
                       return (
                         <div key={row} className={`rounded-2xl border overflow-hidden transition ${e.used ? "bg-[#FFFCF8] border-[#C45A2A]/25" : "bg-white border-[#E8E0D6]"}`}>
-                          <div className="p-4 sm:p-5 flex items-center justify-between gap-3">
-                            <div className="font-semibold text-[15px] leading-tight pr-2">{row}</div>
-                            <div className="flex gap-2 shrink-0">
+                          <div className="p-4 sm:p-5 flex items-center justify-between gap-2 sm:gap-3 min-w-0">
+                            <div className="font-semibold text-[14px] sm:text-[15px] leading-tight pr-2 min-w-0 flex-1 break-words">{row}</div>
+                            <div className="flex gap-2 shrink-0 min-w-0">
                               <button
                                 onClick={() => setIntake((s) => ({ ...s, products: { ...s.products, [row]: { used: true, duration: s.products[row].duration, helped: s.products[row].helped, side_effects: s.products[row].side_effects } } }))}
                                 aria-pressed={e.used}
@@ -1076,18 +1076,18 @@ export default function Home() {
               )}
 
               {step === "q13" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Treatments · 2 of 3</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">Any in-clinic procedures?</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">Any in-clinic procedures?</h2>
                   <p className="text-sm text-[#6B6B68] mt-1">Again, Yes / No first — details only if needed.</p>
                   <div className="mt-6 space-y-3">
                     {PROCEDURE_ROWS.map((row) => {
                       const e = intake.procedures[row];
                       return (
                         <div key={row} className={`rounded-2xl border overflow-hidden transition ${e.done ? "bg-[#FFFCF8] border-[#C45A2A]/25" : "bg-white border-[#E8E0D6]"}`}>
-                          <div className="p-4 sm:p-5 flex items-center justify-between gap-3">
-                            <div className="font-semibold text-[15px]">{row}</div>
-                            <div className="flex gap-2 shrink-0">
+                          <div className="p-4 sm:p-5 flex items-center justify-between gap-2 sm:gap-3 min-w-0">
+                            <div className="font-semibold text-[14px] sm:text-[15px] min-w-0 flex-1 break-words pr-2">{row}</div>
+                            <div className="flex gap-2 shrink-0 min-w-0">
                               <button
                                 onClick={() => setIntake((s) => ({ ...s, procedures: { ...s.procedures, [row]: { done: true, sessions: s.procedures[row].sessions, helped: s.procedures[row].helped } } }))}
                                 aria-pressed={e.done}
@@ -1136,9 +1136,9 @@ export default function Home() {
               )}
 
               {step === "q14" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Treatments · 3 of 3</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">Any side effects or poor response to past treatment?</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">Any side effects or poor response to past treatment?</h2>
                   <div className="mt-5">
                     <YesNo value={intake.past_treatment_side_effects} onChange={(v) => { setVoiceError(null); setIsListening(false); try{ recognitionRef.current?.abort?.(); }catch{} setIntake((s) => ({ ...s, past_treatment_side_effects: v, past_treatment_side_effects_describe: v ? s.past_treatment_side_effects_describe : "" })); }} label="Side effects past treatment" />
                   </div>
@@ -1190,9 +1190,9 @@ export default function Home() {
               )}
 
               {step === "q15" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Sample & consent · 1 of 2</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2">Preferred sample type</h2>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2">Preferred sample type</h2>
                   <p className="text-sm text-[#6B6B68] mt-1">For the genetic analysis — choose what works for you.</p>
                   <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {(["Saliva", "Blood", "Either"] as const).map((o) => (
@@ -1215,10 +1215,10 @@ export default function Home() {
               )}
 
               {step === "q16" && (
-                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                   <SectionEyebrow>Sample & consent · 2 of 2</SectionEyebrow>
-                  <h2 className="text-[24px] font-bold mt-2 leading-tight">Consent to sample collection and genetic analysis</h2>
-                  <p className="text-[15px] text-[#6B6B68] mt-2 leading-6">We will collect the sample you chose and run the hair-loss genetic analysis. You can say No and still finish — it will be saved as consent: false.</p>
+                  <h2 className="text-[22px] sm:text-[24px] font-bold mt-2 leading-tight">Consent to sample collection and genetic analysis</h2>
+                  <p className="text-[14px] sm:text-[15px] text-[#6B6B68] mt-2 leading-6">We will collect the sample you chose and run the hair-loss genetic analysis. You can say No and still finish — it will be saved as consent: false.</p>
                   <div className="mt-6">
                     <YesNo value={intake.consent} onChange={(v) => setIntake((s) => ({ ...s, consent: v }))} label="Consent" />
                   </div>
@@ -1231,8 +1231,8 @@ export default function Home() {
 
               {step === "review" && (
                 <div className="space-y-4">
-                  <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
-                    <h2 className="text-[24px] sm:text-[26px] font-bold tracking-tight">Review your answers</h2>
+                  <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
+                    <h2 className="text-[22px] sm:text-[26px] font-bold tracking-tight">Review your answers</h2>
                     <p className="text-sm text-[#6B6B68] mt-1">Quick check — tap Edit to change anything.</p>
                     <div className="mt-6 space-y-4">
                       {[
@@ -1343,12 +1343,12 @@ export default function Home() {
 
               {step === "done" && (
                 <div className="space-y-4">
-                  <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-6 sm:p-8 shadow-sm">
+                  <div className="bg-white rounded-[24px] border border-[#E8E0D6] p-5 sm:p-8 min-w-0 w-full shadow-sm">
                     <div className="w-11 h-11 rounded-full bg-green-100 text-green-700 grid place-items-center text-xl" aria-hidden>
                       ✓
                     </div>
                     <h2 className="text-[26px] sm:text-[28px] font-bold mt-4 tracking-tight">You&apos;re all set.</h2>
-                    <p className="text-[15px] text-[#6B6B68] mt-2 leading-6">Your answers are saved for your consultation. The doctor will have the full picture before you walk in. No further action needed.</p>
+                    <p className="text-[14px] sm:text-[15px] text-[#6B6B68] mt-2 leading-6">Your answers are saved for your consultation. The doctor will have the full picture before you walk in. No further action needed.</p>
 
                     <details className="mt-6 rounded-2xl border border-[#E8E0D6] bg-[#FFFCF8] p-4">
                       <summary className="text-sm font-medium cursor-pointer list-none flex items-center justify-between">
