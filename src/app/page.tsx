@@ -156,6 +156,44 @@ function InlineError({ children }: { children: React.ReactNode }) {
   );
 }
 
+const WHY_ASKING: Record<string, string> = {
+  q3: "Hair loss can sometimes run in families, so this helps us understand your hair loss history.",
+  q5: "Some health conditions can be relevant when understanding changes in hair growth or shedding.",
+  q6: "This can help the clinic understand hormonal factors that may be relevant to your hair and scalp concerns.",
+  q7: "Pregnancy and the period after giving birth can be associated with changes in hair shedding.",
+  q8: "This can provide additional context about your skin and scalp.",
+  q9: "This helps the clinic understand whether you have noticed other changes that may be relevant to your hair concerns.",
+  q10: "Recent changes such as major stress, illness, weight loss, or environmental changes can provide useful context about changes in hair shedding.",
+  q11: "These details help the clinic understand your everyday hair and lifestyle habits.",
+  q12: "Knowing what you currently use helps the clinic understand your treatment history and what you've already tried.",
+  q13: "This helps the clinic understand previous procedures and treatments you've received.",
+  q14: "Knowing what happened with previous treatments helps the clinic understand your treatment history.",
+  q15: "This tells the clinic which type of sample you would be comfortable providing.",
+  q16: "We ask for your consent before collecting a sample for genetic analysis.",
+};
+
+function WhyAsking({ label, explanation }: { label: string; explanation: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mt-4">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-label={label}
+        className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-[#6B6B68] hover:text-[#1A1A18] min-h-[44px] py-2 px-2 -ml-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C45A2A] focus-visible:ring-offset-1"
+      >
+        Why are we asking? <span aria-hidden className="w-4 h-4 rounded-full border border-[#C8B8A6] grid place-items-center text-[10px] leading-none">ⓘ</span>
+      </button>
+      {open && (
+        <div className="mt-1 p-3 rounded-xl bg-[#FFFCF8] border border-[#E8E0D6] text-[14px] leading-5 text-[#6B6B68] animate-fadeInUp">
+          {explanation}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function humanProgress(step: StepId, applicability: string | null): string | null {
   if (step === "welcome" || step === "gate") return null;
   if (["q1", "q2", "q3", "q4"].includes(step)) {
@@ -798,6 +836,7 @@ export default function Home() {
                     ))}
                   </div>
                   <p className="text-xs text-[#6B6B68] mt-3">Choosing “No known family history” clears the others — no need to explain.</p>
+                  <WhyAsking label="Why are we asking about family history?" explanation={WHY_ASKING.q3} />
                   {stepError && <InlineError>{stepError}</InlineError>}
                 </div>
               )}
@@ -845,6 +884,7 @@ export default function Home() {
                       </Chip>
                     ))}
                   </div>
+                  <WhyAsking label="Why are we asking about diagnosed conditions?" explanation={WHY_ASKING.q5} />
                   {stepError && <InlineError>{stepError}</InlineError>}
                 </div>
               )}
@@ -860,6 +900,7 @@ export default function Home() {
                       </Chip>
                     ))}
                   </div>
+                  <WhyAsking label="Why are we asking about menstrual cycle?" explanation={WHY_ASKING.q6} />
                   {stepError && <InlineError>{stepError}</InlineError>}
                 </div>
               )}
@@ -875,6 +916,7 @@ export default function Home() {
                       </Chip>
                     ))}
                   </div>
+                  <WhyAsking label="Why are we asking about pregnancy-related hair changes?" explanation={WHY_ASKING.q7} />
                   {stepError && <InlineError>{stepError}</InlineError>}
                 </div>
               )}
@@ -889,12 +931,14 @@ export default function Home() {
                       <div className="mt-3">
                         <YesNo value={intake.adult_acne_oily_skin} onChange={(v) => setIntake((s) => ({ ...s, adult_acne_oily_skin: v }))} label="Acne or oily skin" />
                       </div>
+                      <WhyAsking label="Why are we asking about acne or oily skin?" explanation={WHY_ASKING.q8} />
                     </div>
                     <div className="pt-5 border-t border-[#E8E0D6]">
                       <div className="font-semibold text-[14px] sm:text-[15px]">Do you have excess body or facial hair growth?</div>
                       <div className="mt-3">
                         <YesNo value={intake.excess_body_facial_hair} onChange={(v) => setIntake((s) => ({ ...s, excess_body_facial_hair: v }))} label="Excess body or facial hair" />
                       </div>
+                      <WhyAsking label="Why are we asking about excess hair growth?" explanation={WHY_ASKING.q9} />
                     </div>
                   </div>
                   {stepError && <InlineError>{stepError}</InlineError>}
@@ -924,6 +968,7 @@ export default function Home() {
                       </button>
                     </div>
                   </div>
+                  <WhyAsking label="Why are we asking about recent changes?" explanation={WHY_ASKING.q10} />
                 </div>
               )}
 
@@ -1005,6 +1050,7 @@ export default function Home() {
                       )}
                     </div>
                   </div>
+                  <WhyAsking label="Why are we asking about habits?" explanation={WHY_ASKING.q11} />
                   {stepError && <InlineError>{stepError}</InlineError>}
                 </div>
               )}
@@ -1071,6 +1117,7 @@ export default function Home() {
                       );
                     })}
                   </div>
+                  <WhyAsking label="Why are we asking about current products?" explanation={WHY_ASKING.q12} />
                   {stepError && <InlineError>{stepError}</InlineError>}
                 </div>
               )}
@@ -1131,6 +1178,7 @@ export default function Home() {
                       );
                     })}
                   </div>
+                  <WhyAsking label="Why are we asking about previous procedures?" explanation={WHY_ASKING.q13} />
                   {stepError && <InlineError>{stepError}</InlineError>}
                 </div>
               )}
@@ -1185,6 +1233,7 @@ export default function Home() {
                       {voiceError && <InlineError>{voiceError}</InlineError>}
                     </div>
                   )}
+                  <WhyAsking label="Why are we asking about side effects?" explanation={WHY_ASKING.q14} />
                   {stepError && <InlineError>{stepError}</InlineError>}
                 </div>
               )}
@@ -1210,6 +1259,7 @@ export default function Home() {
                       </button>
                     ))}
                   </div>
+                  <WhyAsking label="Why are we asking about sample type?" explanation={WHY_ASKING.q15} />
                   {stepError && <InlineError>{stepError}</InlineError>}
                 </div>
               )}
@@ -1225,6 +1275,7 @@ export default function Home() {
                   {intake.consent === false && (
                     <div className="mt-4 p-3.5 rounded-xl bg-[#FFF1E8] border border-[#E8D9C8] text-sm leading-5 animate-fadeInUp">Noted — saved as <b>consent: false</b>. No sample will be collected. You can still submit.</div>
                   )}
+                  <WhyAsking label="Why are we asking for consent?" explanation={WHY_ASKING.q16} />
                   {stepError && <InlineError>{stepError}</InlineError>}
                 </div>
               )}
