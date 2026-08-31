@@ -2,9 +2,7 @@
 
 A patient-facing hair and scalp intake experience designed to make a 16-question medical intake feel less like filling out a form and more like having a guided conversation.
 
-**Live Demo:** [Add Vercel URL]
-
-**Repository:** [Add GitHub URL]
+**Live Demo:** [\[Vercel\]](https://genoroot-omega.vercel.app/)
 
 ---
 
