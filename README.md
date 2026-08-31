@@ -144,3 +144,25 @@ Schema Validation
    │
    ▼
 Review / Completion
+
+---
+
+## If I Had Another Week
+
+### 1. Make the intake more adaptive
+
+I would make the intake more context-aware, using information the patient has already provided to make later questions feel more connected and less repetitive.
+
+The system would still require the patient to confirm any information rather than making medical inferences.
+
+### 2. Improve the visual hair-loss interaction
+
+I would experiment with a more interactive scalp/head visualization for the hair-loss pattern question.
+
+Instead of selecting from cards alone, patients could tap the areas where they have noticed hair loss, while the interaction continues to map cleanly to the required schema values.
+
+### 3. Add privacy-conscious product analytics
+
+For a production version, I would measure where patients abandon the intake, how long they spend on each question, where validation errors occur, and how often answers are edited.
+
+This would help determine whether the UX decisions actually reduce friction rather than relying only on subjective testing.
