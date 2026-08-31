@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GenoRoot Hair & Scalp Intake
 
-## Getting Started
+A patient-facing hair and scalp intake experience designed to make a 16-question medical intake feel less like filling out a form and more like having a guided conversation.
 
-First, run the development server:
+**Live Demo:** [Add Vercel URL]
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Repository:** [Add GitHub URL]
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## The Problem
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Traditional medical intake forms can feel long, repetitive, and difficult to complete, especially when they contain dense tables or questions that require medical terminology.
 
-## Learn More
+The goal of this project was to take the required 16-question hair and scalp intake and turn it into a patient-friendly experience that:
 
-To learn more about Next.js, take a look at the following resources:
+- Works well on mobile and desktop
+- Requires minimal explanation
+- Uses the right interaction for each type of question
+- Reveals follow-up questions only when relevant
+- Preserves the exact structured output required by the provided schema
+- Allows patients to review and correct their answers easily
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The patient experience was treated as the primary product requirement rather than simply building a form around the schema.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Key Product Decisions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 1. Different questions use different interactions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+I did not treat all 16 questions as generic form fields.
+
+Examples:
+
+- Age uses a large number input with +/- controls.
+- Single-choice questions use large selectable cards.
+- Multi-select questions use chips.
+- Hair-loss patterns use visual cards rather than relying only on clinical terminology.
+- Yes/No questions use large touch-friendly controls.
+- Free-text questions provide a normal textarea with optional voice input.
+
+The goal was to make the correct action obvious without requiring instructions.
+
+---
+
+### 2. Progressive disclosure for complex questions
+
+Questions 11–13 originally contain dense table-like structures.
+
+Instead of showing all possible fields at once, the interface progressively reveals relevant follow-ups.
+
+For example:
+
+**Do you smoke?**
+
+→ Yes
+
+**How much?**
+
+→ Mild / Moderate / Severe
+
+Similarly, treatment and procedure details are only shown when the patient indicates that they have used or undergone them.
+
+This reduces cognitive load and prevents the patient from being overwhelmed by irrelevant fields.
+
+---
+
+### 3. Optional "Why are we asking?" explanations
+
+Some questions may feel personal or unclear to a patient.
+
+For selected questions, the patient can optionally expand:
+
+> **Why are we asking?**
+
+The explanation is short and contextual rather than presenting medical education or making a diagnosis.
+
+The patient can completely ignore these explanations and continue through the normal flow.
+
+---
+
+### 4. Voice input where it actually reduces friction
+
+I intentionally did not build an AI chatbot for the entire intake.
+
+For the open-ended treatment side-effect question, speaking can be easier than typing, so Q14 includes optional browser-native speech recognition.
+
+The flow is:
+
+**Speak → Speech-to-text → Patient reviews/edits → Continue**
+
+The transcription never automatically submits and is never medically interpreted.
+
+I chose the browser-native Web Speech API instead of adding an external speech-to-text or LLM service because this use case only requires transcription. This keeps the implementation low-latency, avoids API keys and external data transfer, and provides a graceful typing fallback on unsupported browsers.
+
+---
+
+### 5. Direct answer editing
+
+On the review screen, patients can change an individual answer without navigating backwards through the entire intake.
+
+The flow is:
+
+**Review → Change answer → Specific question → Save → Review**
+
+This is particularly useful for a long intake because correcting one mistake should not require repeating unrelated questions.
+
+---
+
+## Technical Architecture
+
+### Stack
+
+- **Next.js**
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
+- **Zod**
+- **Browser Web Speech API**
+- **localStorage**
+- **Vercel**
+
+### Architecture
+
+The application is intentionally lightweight.
+
+```text
+Patient
+   │
+   ▼
+Guided Intake UI
+   │
+   ▼
+React Intake State
+   │
+   ├── Conditional question logic
+   ├── Validation
+   └── Local persistence
+   │
+   ▼
+Structured Output
+   │
+   ▼
+Schema Validation
+   │
+   ▼
+Review / Completion
