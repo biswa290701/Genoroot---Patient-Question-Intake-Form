@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createInitialIntake, toStructuredOutput, IntakeState, PRODUCT_ROWS, PROCEDURE_ROWS } from "@/lib/types";
 import { validateIntake } from "@/lib/validation";
+import HelpChatbot from "@/components/HelpChatbot";
 
 type StepId =
   | "welcome" | "gate"
@@ -1554,6 +1555,7 @@ export default function Home() {
       </main>
 
       <footer className="text-center text-xs text-[#6B6B68] py-6 px-4">GenoRoot · No login · No data saved · Made-up patients only · progress saved locally</footer>
+      <HelpChatbot currentStep={step} />
     </div>
   );
 }
